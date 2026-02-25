@@ -1,0 +1,33 @@
+# Project: C_Filter
+# Makefile created by Embarcadero Dev-C++ 6.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = c_filter.o dllmain.o
+LINKOBJ  = c_filter.o dllmain.o
+LIBS     = -L"D:/Development Tools/Dev-Cpp/TDM-GCC-64/lib" -L"D:/Development Tools/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/include" -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
+CXXINCS  = -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/include" -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"D:/Development Tools/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
+BIN      = C_Filter.dll
+CXXFLAGS = $(CXXINCS) -DBUILDING_DLL=1
+CFLAGS   = $(INCS) -DBUILDING_DLL=1
+DEL      = D:\Development Tools\Dev-Cpp\devcpp.exe INTERNAL_DEL
+DEF      = libC_Filter.def
+STATIC   = libC_Filter.a
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${DEL} $(OBJ) $(BIN) $(DEF) $(STATIC)
+
+$(BIN): $(LINKOBJ)
+	$(CC) -shared $(LINKOBJ) -o $(BIN) $(LIBS) -Wl,--output-def,$(DEF),--out-implib,$(STATIC),--add-stdcall-alias
+
+c_filter.o: c_filter.c
+	$(CC) -c c_filter.c -o c_filter.o $(CFLAGS)
+
+dllmain.o: dllmain.c
+	$(CC) -c dllmain.c -o dllmain.o $(CFLAGS)
