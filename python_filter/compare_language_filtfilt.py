@@ -64,7 +64,7 @@ print([float(f'{output:.6f}') for output in matlab_output_signal])
 # ==============================
 # 创建保存目录
 # ==============================
-save_dir = "figures"
+save_dir = "../figures"
 os.makedirs(save_dir, exist_ok=True)
 
 # ==============================
